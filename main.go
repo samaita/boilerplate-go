@@ -5,15 +5,19 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/samaita/boilerplate-go/config"
+	appInit "github.com/samaita/boilerplate-go/internal/init"
 )
 
 var conf config.Config
 
 func init() {
-	conf = config.GetConfig() // ok
+	conf = config.GetConfig()
 }
 
 func main() {
+
+	appInit.ConnectDB(conf)
+
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
