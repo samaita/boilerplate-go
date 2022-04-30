@@ -4,7 +4,9 @@ go 1.17
 
 require (
 	github.com/cosmtrek/air v1.29.0
+	github.com/jmoiron/sqlx v1.3.5
 	github.com/labstack/echo/v4 v4.7.2
+	github.com/lib/pq v1.2.0
 	github.com/spf13/viper v1.11.0
 )
 
