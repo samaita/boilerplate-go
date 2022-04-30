@@ -10,7 +10,7 @@ import (
 var conf config.Config
 
 func init() {
-	conf = config.GetConfig()
+	conf = config.GetConfig() // ok
 }
 
 func main() {
