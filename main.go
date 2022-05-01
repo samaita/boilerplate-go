@@ -17,6 +17,7 @@ func init() {
 func main() {
 
 	appInit.ConnectDB(conf)
+	appInit.ConnectCache(conf)
 
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {

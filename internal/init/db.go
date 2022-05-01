@@ -10,7 +10,7 @@ import (
 
 	_ "github.com/lib/pq"
 	"github.com/samaita/boilerplate-go/config"
-	"github.com/samaita/boilerplate-go/pkg/pg"
+	pkg "github.com/samaita/boilerplate-go/pkg/pg"
 )
 
 type DBConnection struct {
@@ -23,7 +23,7 @@ func ConnectDB(config config.Config) (conn DBConnection) {
 	var err error
 
 	pgConf := config.Datastore.Database.Postgres
-	pgConn := pg.Postgres{
+	pgConn := pkg.Postgres{
 		DBName:            pgConf.DBName,
 		Host:              pgConf.Host,
 		MaxConnection:     pgConf.MaxConnection,
@@ -36,7 +36,7 @@ func ConnectDB(config config.Config) (conn DBConnection) {
 
 	conn.MainDB, err = pgConn.Connect()
 	if err != nil {
-		log.Fatalln("Err:", err)
+		log.Fatalln("DB Err:", err)
 	}
 
 	conn.MainDB.SetMaxOpenConns(pgConn.MaxConnection)
@@ -44,7 +44,7 @@ func ConnectDB(config config.Config) (conn DBConnection) {
 
 	conn.Timeout = pgConf.Timeout
 	if err = conn.testConnection(); err != nil {
-		log.Fatalln("Err:", err)
+		log.Fatalln("DB Err:", err)
 	}
 
 	log.Println("Success Connect:", fmt.Sprintf("%s:%s/%s", pgConf.Host, pgConf.Port, pgConf.DBName))
