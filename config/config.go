@@ -25,6 +25,15 @@ type Config struct {
 				Timeout           time.Duration `mapstructure:"TIMEOUT"`
 			} `mapstructure:"POSTGRES"`
 		} `mapstructure:"DATABASE"`
+		Cache struct {
+			Redis struct {
+				DB       int           `mapstructure:"DB"`
+				Host     string        `mapstructure:"HOST"`
+				Password string        `mapstructure:"PASSWORD"`
+				Port     string        `mapstructure:"PORT"`
+				Timeout  time.Duration `mapstructure:"TIMEOUT"`
+			} `mapstructure:"REDIS"`
+		} `mapstructure:"CACHE"`
 	} `mapstructure:"DATASTORE"`
 }
 
