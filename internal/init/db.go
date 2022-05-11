@@ -43,17 +43,17 @@ func ConnectDB(config config.Config) (conn DBConnection) {
 	conn.MainDB.SetMaxIdleConns(pgConf.MaxIdleConnection)
 
 	conn.Timeout = pgConf.Timeout
-	if err = conn.testConnection(); err != nil {
+	if err = conn.TestConnection(); err != nil {
 		log.Fatalln("DB Err:", err)
 	}
 
-	log.Println("Success Connect:", fmt.Sprintf("%s:%s/%s", pgConf.Host, pgConf.Port, pgConf.DBName))
+	log.Println("Success Connect Pg:", fmt.Sprintf("%s:%s/%s", pgConf.Host, pgConf.Port, pgConf.DBName))
 	log.Println(fmt.Sprintf("MaxConn: %d, MaxIdle: %d, Timeout: %v", pgConf.MaxConnection, pgConf.MaxIdleConnection, pgConf.Timeout))
 	return
 }
 
-// testConnection do ping within predefined timeout, better to be called once on connect
-func (conn *DBConnection) testConnection() (err error) {
+// TestConnection do ping within predefined timeout, better to be called once on connect
+func (conn *DBConnection) TestConnection() (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), conn.Timeout)
 	defer cancel()
 

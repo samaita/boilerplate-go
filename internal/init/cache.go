@@ -29,16 +29,16 @@ func ConnectCache(config config.Config) (conn CacheConnection) {
 	conn.MainCache = redisConn.Connect()
 
 	conn.Timeout = redisConf.Timeout
-	if err := conn.testConnection(); err != nil {
+	if err := conn.TestConnection(); err != nil {
 		log.Fatalln("Cache Err:", err)
 	}
 
-	log.Println("Success Connect:", fmt.Sprintf("%s:%s DB: %d", redisConf.Host, redisConf.Port, redisConf.DB))
+	log.Println("Success Connect Redis:", fmt.Sprintf("%s:%s DB: %d", redisConf.Host, redisConf.Port, redisConf.DB))
 	return
 }
 
-// testConnection do ping within predefined timeout, better to be called once on connect
-func (conn *CacheConnection) testConnection() (err error) {
+// TestConnection do ping within predefined timeout, better to be called once on connect
+func (conn *CacheConnection) TestConnection() (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), conn.Timeout)
 	defer cancel()
 
