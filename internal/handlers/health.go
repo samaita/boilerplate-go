@@ -1,12 +1,11 @@
 package handlers
 
 import (
-	"net/http"
-
 	"github.com/labstack/echo/v4"
 	"github.com/samaita/boilerplate-go/internal/dto"
 	"github.com/samaita/boilerplate-go/internal/models"
 	"github.com/samaita/boilerplate-go/pkg/constants"
+	"github.com/samaita/boilerplate-go/pkg/http"
 )
 
 // HealthHandler hold every handler require
@@ -48,5 +47,6 @@ func (h *HealthHandler) HealthCheck(ctx echo.Context) (err error) {
 	}
 	data.CacheLatency = latency.String()
 
-	return ctx.JSON(http.StatusOK, data)
+	http.SuccessResponse(ctx, data)
+	return
 }

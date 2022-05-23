@@ -2,11 +2,11 @@ package main
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 	"github.com/samaita/boilerplate-go/config"
 	"github.com/samaita/boilerplate-go/internal/handlers"
 	appInit "github.com/samaita/boilerplate-go/internal/init"
 	"github.com/samaita/boilerplate-go/internal/repositories"
+	"github.com/samaita/boilerplate-go/pkg/middleware"
 )
 
 var conf config.Config
@@ -28,7 +28,7 @@ func main() {
 	healthHandler := handlers.NewHealthHandler(healthRepo)
 
 	router := echo.New()
-	router.Use(middleware.Recover())
+	router.Use(middleware.Recover(), middleware.Latency)
 	root := router.Group("")
 
 	// register handler to root
