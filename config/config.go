@@ -14,6 +14,7 @@ type Config struct {
 	App struct {
 		Port string `mapstructure:"PORT"`
 	} `mapstructure:"APP"`
+	Port      string `mapstructure:"PORT"` // heroku specific
 	Datastore struct {
 		Database struct {
 			Postgres struct {
@@ -62,11 +63,17 @@ func loadConfigFromFile(path, name string) (config Config) {
 	if err = viper.Unmarshal(&config); err != nil {
 		log.Fatalln("Err on unmarshal config:", err)
 	}
+
+	// heroku specific, override app port
+	if config.Port != "" {
+		config.App.Port = fmt.Sprintf(":%s", config.Port)
+	}
 	return
 }
 
 func loadConfigFromEnv() {
 	envKeys := []string{
+		"PORT",
 		"APP.PORT",
 		"DATASTORE.DATABASE.POSTGRES.DBNAME",
 		"DATASTORE.DATABASE.POSTGRES.HOST",
