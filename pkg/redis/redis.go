@@ -14,7 +14,7 @@ type Redis struct {
 	Timeout  time.Duration
 }
 
-// Connect create a new SQLX connection
+// Connect create a new Redis connection
 func (rds *Redis) Connect() *redis.Client {
 	return redis.NewClient(&redis.Options{
 		Addr:     rds.Host + ":" + rds.Port,
