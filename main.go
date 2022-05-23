@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/labstack/echo/v4"
 	"github.com/samaita/boilerplate-go/config"
 	"github.com/samaita/boilerplate-go/internal/handlers"
@@ -12,6 +14,7 @@ import (
 var conf config.Config
 
 func init() {
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	conf = config.GetConfig()
 }
 
